@@ -1,25 +1,23 @@
-name: Metrics
+name: GitHub-Profile-Summary-Cards
+
 on:
-  # Schedule updates (once a day at midnight)
-  schedule: [{cron: "0 0 * * *"}]
-  # Allow manual refresh
+  create:
+  push:
+  schedule: # execute every 24 hours
+    - cron: "0 0 * * *"
   workflow_dispatch:
-  # Run on every push to main
-  push: {branches: ["master", "main"]}
 
 jobs:
-  github-metrics:
+  build:
     runs-on: ubuntu-latest
+    name: generate-github-cards
+    permissions:
+      contents: write
+      
     steps:
-      - uses: lowlighter/metrics@latest
+      - uses: actions/checkout@v2
+      - uses: vn7n24fzkq/github-profile-summary-cards@release
+        env:
+          GITHUB_TOKEN: ${{ secrets.SUMMARY_CARD_TOKEN }}
         with:
-          token: ${{ secrets.STATS_README_TOKEN }}
-          template: classic
-          base: header, community, repositories, metadata
-          
-          plugin_languages: yes
-          plugin_languages_ignored: html, css, ipynb, Jupyter Notebook
-          plugin_languages_details: bytes-size, percentage
-          
-          plugin_isocalendar: yes
-          plugin_isocalendar_duration: half-year
+          USERNAME: ${{ github.repository_owner }}
