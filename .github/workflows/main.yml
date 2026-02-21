@@ -16,7 +16,7 @@ jobs:
           token: ${{ secrets.STATS_README_TOKEN }}
 
           # Options
-          user: dozeype
+          user: dozetype
           template: classic
           base: header, community, repositories, metadata
           config_timezone: Asia/Singapore
