@@ -13,8 +13,7 @@ jobs:
     steps:
       - uses: lowlighter/metrics@latest
         with:
-          # Use the token we saved in Step 2
-          token: ${{ secrets.METRICS_TOKEN }}
+          token: ${{ secrets.STATS_README_TOKEN }}
 
           # Options
           user: dozeype
